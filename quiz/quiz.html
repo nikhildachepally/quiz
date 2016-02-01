@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+div#test{border:#000 1px solid; padding:10px 40px 40px 40px;}
+
+}
+</style>
+<script>
+var pos=0,test,test_status,question,choice,choices,chA,chB,chC,correct=0;
+var questions = [
+     ["At Dartmouth College in 1964 John Kemeny and Thomas Kurtz invented?","ALGOL","BASIC","FORTRAN","B"],
+     ["Complete this quote “Computers are useless. They can only give you?","NUMBERS","PICTURES","ANSWERS","c"],
+     ["Who invented C++?","LARRY WALL","BJARNE STROUSTRUP","JOHN BACKUS","B"],
+     ["Which of these is not a functional programming language?","F#","LISP","FORTRAN","C"],
+     ["Dylan, Erlang, Haskell and ML are examples of?","WEB LANGUAGES","FUNCTIONAL LANGUAGES","VISUAL LANGUAGES","B"],
+     ["A true or false statement put into code that the programmer expects to always be true is an?","ASSERTION","HARNESS","EXPRESSION","A"],
+     ["A section of code that responds to a particular interaction of the user with a gui control is called a?","DISPATCH FUNCTION","EXCEPTION HANDLER","EVENT HANDLER","C"],
+     ["Who is the founder of Facebook?","LARRY PAGE","MARK ZUCKERBURG","DENNIS RITCHIE","B"],
+     ["Which operator is used to continue the definition of macro in the next line?","#","$","/","C"],
+     ["Where is the Facebook Data center located?","INDIA","LONDON","EUROPE","C"],
+     [" Which is not a loop structure?","REPEAT UNTILL","FOR","DO WHILE","A"],
+     [ "What is the only function all C programs must contain?","Start()","main()","Program()","B"],
+     ["Which of the following is the correct operator to compare two variables?","==","Equal",":=","A"],
+     ["Java is a set of computer software and specifications developed by","Sun Microsystems","Bell laboratories","none of the above","A"],
+     ["_____ is a technology that allows small java based applications to be run securely on smart cards","Java SE","Java EE","Java Card","c"],
+     ["Who is the founder of c language?","DENNIS RITCHIE","ZUCKERBURG","LARRY PAGE","A"]
+];
+function _(x)
+{
+return document.getElementById(x);
+}
+function renderQuestion(){
+test = _("test");
+if(pos >= questions.length){
+	
+	test.innerHTML = "<h2>YOU GOT "+correct+" OF "+questions.length+"questions correct</h2>";
+	_("test_status").innerHTML = "Succesfully completed";
+	alert("completed your quiz");
+
+	pos = 1;
+	correct = 0;
+	return false;
+}
+_("test_status").innerHTML = "Question" +(pos+1)+ "of" + questions.length;
+question = questions[pos][0];
+chA = questions[pos][1];
+chB = questions[pos][2];
+chC = questions[pos][3];
+test.innerHTML = "<h3>"+question+"</h3>";
+test.innerHTML+= "<input type = 'radio' name='choices' value='A'>"+chA+"<br>";	
+test.innerHTML+= "<input type = 'radio' name='choices' value='B'> "+chB+"<br>";
+test.innerHTML+= "<input type = 'radio' name='choices' value='C'> "+chC+"<br>";
+test.innerHTML+= "<button onclick = 'checkAnswer()'>submit Answer </button>";
+test.innerHTML+= "<button onclick='updateprevious()'>previous</button>";
+}
+
+function checkAnswer()
+{
+	
+	choices = document.getElementsByName("choices");
+	for(var i=0; i<choices.length; i++){
+     if(choices[i].checked){
+      choice = choices[i].value;
+}
+    }
+    if(choice == questions[pos][4]){
+         correct++;
+    }
+    pos++
+    renderQuestion();
+}
+window.addEventListener("load",renderQuestion,false);
+
+
+</script>
+</head>
+<body>
+<h2 id="test_status"></h2>
+<div id ="test"></div>
+</body>
+</html>
